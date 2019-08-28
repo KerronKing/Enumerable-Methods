@@ -19,14 +19,23 @@ end
     self
   end
   end
-  def my_select
-
+  def my_select(&block)
+    result = []
+    self.each do |elem|
+      result << block.call(elem) if block.call(elem) == true
+    end
+    result
   end
   def my_all?
+    counter = 0
     self.each do |elem|
-      yield
+      counter += 1 if block.call(elem) == true
     end
-    if 
+    if counter == self.size
+      return true
+    else
+      return false
+    end
   end
   def my_any
 
