@@ -74,16 +74,21 @@ module Enumerable
     end
     result
   end
-  def my_inject(acc, &block)
-    self.my_each do |elem|
-      acc = block.call(acc, elem)
-    end
+  def my_inject
+    if block_given?
+      acc ||= self.first
+      self.my_each do |elem|
+        acc = yield(acc, elem)
+      end
     acc
+    end
   end
-  def multiple_els(&block)
-    self.my_inject {block.call(elem)}
+  def multiply_els
+    self.my_inject do |x, y|
+      x * y
+    end
   end
 end
 
 
-puts [1, 2, 3].my_count 
+puts [1, 2, 3].multiply_els 
