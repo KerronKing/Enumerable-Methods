@@ -39,11 +39,8 @@ module Enumerable
     self.my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
-    if counter == self.size
-      return true
-    else
-      return false
-    end
+    return true if counter == self.size
+    return false
   end
 
   # my_any enumerable method definition
@@ -53,11 +50,8 @@ module Enumerable
     self.my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
-    if counter.positive?
-      return true
-    else
-      return false
-    end
+    return true if counter > 0
+    return false
   end
 
   # my_none? enumerable method definition
@@ -67,25 +61,19 @@ module Enumerable
     self.my_each do |elem|
       counter += 1 if block.call(elem) == false
     end
-    if counter == self.size
-      return true
-    else
-      return false
-    end
+    return true if counter == self.size
+    return false
   end
 
   # my_count enumerable method definition
 
-  def my_count
-    counter = 0
-    if block_given?
-      self.my_each do |elem|
-        counter += 1 if yield(elem) == true
-      end
-    else
-      counter = self.size
+  def my_count(&block)
+    result = []
+    return self.size unless block_given?
+    self.my_each do |elem|
+      result << elem if block.call(elem) == true
     end
-    counter
+    result.size
   end
 
   # my_map enumerable method definition
@@ -101,17 +89,15 @@ module Enumerable
   # my_inject enumerable method definition
 
   def my_inject
-    if block_given?
-      acc ||= self.first
-      self.my_each do |elem|
-        acc = yield(acc, elem)
-      end
-    acc
+    acc ||= self.first
+    self.my_each do |elem|
+      acc = yield(acc, elem)
     end
+    acc
   end
 
   # multiply_els method that uses the "my_inject" method to
-  # multiply all the elements in an array
+  # multiply all of the elements in an array
 
   def multiply_els
     self.my_inject do |x, y|
@@ -123,31 +109,32 @@ end
 #Method Tests:
 
 # my_each method test:
-[1, 2, 3].my_each { |x| puts x }
+# [1, 2, 3].my_each { |x| puts x }
 
 # my_each_with_index method test:
-["Hello", "to", "everyone"].my_each_with_index { |x, y| puts "#{x}'s index is #{y}"}
+# ["Hello", "to", "everyone"].my_each_with_index { |x, y| puts "#{x}'s index is #{y}"}
 
 # my_select method test:
-[10, 5, 37].my_select { |x| puts x > 12 }
+# puts [10, 5, 37].my_select { |x| x > 12 }
 
 # my_all? method test:
-[1, 2, 3].my_all? { |x| puts x > 4}
+# puts [1, 2, 3].my_all? { |x| x > 4}
 
 # my_any? method test:
-[13, 27, 39].my_any? { |x| puts x < 30 }
+# puts [13, 27, 39].my_any? { |x| x > 40 }
 
 # my_none? method test:
-[1, 2, 3].my_none? { |x| puts x < 4}
+# puts [1, 2, 3].my_none? { |x| x > 4}
 
 # my_count method test:
-[1, 2, 3].my_count
+# puts [1, 2, 3].my_count { |x| x >= 2}
+# puts [1, 2, 3].my_count
 
 # my_map method test:
-[1, 2, 3].my_map { |x| puts x * 4 }
+# [1, 2, 3].my_map { |x| puts x * 4 }
 
 # my_inject method test:
-[1, 2, 3].my_inject { |x, y| puts x + y }
+puts [1, 2, 3].my_inject { |x, y| x + y }
 
 # multiply_els method test:
-[1, 2, 3].multiply_els
+# puts [1, 2, 3].multiply_els
