@@ -51,7 +51,7 @@ module Enumerable
     my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
-    return true if counter > 0
+    return true if counter.positive?
     return false
   end
 
@@ -90,8 +90,8 @@ module Enumerable
   # my_inject enumerable method definition
 
   def my_inject
-    acc ||= self.first
-    self.my_each do |elem|
+    acc = self.first
+    self.drop(1).my_each do |elem|
       acc = yield(acc, elem)
     end
     acc
@@ -110,32 +110,32 @@ end
 # Method Tests:
 
 # my_each method test:
-# [1, 2, 3].my_each { |x| puts x }
+[1, 2, 3].my_each { |x| puts x }
 
 # my_each_with_index method test:
-# ["Hello", "to", "everyone"].my_each_with_index { |x, y| puts "#{x}'s index is #{y}"}
+["Hello", "to", "everyone"].my_each_with_index { |x, y| puts "#{x}'s index is #{y}"}
 
 # my_select method test:
-# puts [10, 5, 37].my_select { |x| x > 12 }
+puts [10, 5, 37].my_select { |x| x > 12 }
 
 # my_all? method test:
-# puts [1, 2, 3].my_all? { |x| x > 4}
+puts [1, 2, 3].my_all? { |x| x > 4}
 
 # my_any? method test:
-# puts [13, 27, 39].my_any? { |x| x > 40 }
+puts [13, 27, 39].my_any? { |x| x > 40 }
 
 # my_none? method test:
-# puts [1, 2, 3].my_none? { |x| x > 4}
+puts [1, 2, 3].my_none? { |x| x > 4}
 
 # my_count method test:
-# puts [1, 2, 3].my_count { |x| x >= 2}
-# puts [1, 2, 3].my_count
+puts [1, 2, 3].my_count { |x| x >= 2}
+puts [1, 2, 3].my_count
 
 # my_map method test:
-# [1, 2, 3].my_map { |x| puts x * 4 }
+[1, 2, 3].my_map { |x| puts x * 4 }
 
 # my_inject method test:
-puts [1, 2, 3].my_inject { |x, y| x + y }
+puts [3, 2, 3].my_inject({ |x, y| x + y })
 
 # multiply_els method test:
-# puts [1, 2, 3].multiply_els
+puts [4, 2, 3].multiply_els
