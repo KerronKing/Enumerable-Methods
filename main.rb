@@ -1,12 +1,13 @@
-module Enumerable
+# frozen_string_literal: true
 
+module Enumerable
   # my_each enumerable method definition
 
   def my_each
     i = 0
-    while i < self.size
-      yield(self[i])  
-      i += 1      
+    while i < size
+      yield(self[i])
+      i += 1
     end
     self
   end
@@ -15,9 +16,9 @@ module Enumerable
 
   def my_each_with_index
     i = 0
-    while i < self.size
-      yield(self[i], i)  
-      i += 1      
+    while i < size
+      yield(self[i], i)
+      i += 1
     end
     self
   end
@@ -26,7 +27,7 @@ module Enumerable
 
   def my_select(&block)
     result = []
-    self.my_each do |elem|
+    my_each do |elem|
       result << elem if block.call(elem) == true
     end
     result
@@ -36,10 +37,10 @@ module Enumerable
 
   def my_all?(&block)
     counter = 0
-    self.my_each do |elem|
+    my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
-    if counter == self.size
+    if counter == size
       return true
     else
       return false
@@ -50,7 +51,7 @@ module Enumerable
 
   def my_any?(&block)
     counter = 0
-    self.my_each do |elem|
+    my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
     if counter.positive?
@@ -64,10 +65,10 @@ module Enumerable
 
   def my_none?(&block)
     counter = 0
-    self.my_each do |elem|
+    my_each do |elem|
       counter += 1 if block.call(elem) == false
     end
-    if counter == self.size
+    if counter == size
       return true
     else
       return false
@@ -79,11 +80,11 @@ module Enumerable
   def my_count
     counter = 0
     if block_given?
-      self.my_each do |elem|
+      my_each do |elem|
         counter += 1 if yield(elem) == true
       end
     else
-      counter = self.size
+      counter = size
     end
     counter
   end
@@ -92,7 +93,7 @@ module Enumerable
 
   def my_map(&block)
     result = []
-    self.my_each do |elem|
+    my_each do |elem|
       result << block.call(elem)
     end
     result
@@ -102,11 +103,11 @@ module Enumerable
 
   def my_inject
     if block_given?
-      acc ||= self.first
-      self.my_each do |elem|
+      acc ||= first
+      my_each do |elem|
         acc = yield(acc, elem)
       end
-    acc
+      acc
     end
   end
 
@@ -114,31 +115,31 @@ module Enumerable
   # multiply all the elements in an array
 
   def multiply_els
-    self.my_inject do |x, y|
+    my_inject do |x, y|
       x * y
     end
   end
 end
 
-#Method Tests:
+# Method Tests:
 
 # my_each method test:
 [1, 2, 3].my_each { |x| puts x }
 
 # my_each_with_index method test:
-["Hello", "to", "everyone"].my_each_with_index { |x, y| puts "#{x}'s index is #{y}"}
+%w[Hello to everyone].my_each_with_index { |x, y| puts "#{x}'s index is #{y}" }
 
 # my_select method test:
 [10, 5, 37].my_select { |x| puts x > 12 }
 
 # my_all? method test:
-[1, 2, 3].my_all? { |x| puts x > 4}
+[1, 2, 3].my_all? { |x| puts x > 4 }
 
 # my_any? method test:
 [13, 27, 39].my_any? { |x| puts x < 30 }
 
 # my_none? method test:
-[1, 2, 3].my_none? { |x| puts x < 4}
+[1, 2, 3].my_none? { |x| puts x < 4 }
 
 # my_count method test:
 [1, 2, 3].my_count
