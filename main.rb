@@ -52,14 +52,8 @@ module Enumerable
     my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
-<<<<<<< HEAD
     return true if counter.positive?
     return false
-=======
-    return true if counter > 0
-
-    false
->>>>>>> 525700ff40084e45f54d461f132fde531f5cae3b
   end
 
   # my_none? enumerable method definition
@@ -99,13 +93,8 @@ module Enumerable
   # my_inject enumerable method definition
 
   def my_inject
-<<<<<<< HEAD
     acc = self.first
     self.drop(1).my_each do |elem|
-=======
-    acc ||= first
-    my_each do |elem|
->>>>>>> 525700ff40084e45f54d461f132fde531f5cae3b
       acc = yield(acc, elem)
     end
     acc
