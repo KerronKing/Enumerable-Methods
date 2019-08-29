@@ -40,8 +40,9 @@ module Enumerable
     my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
-    return true if counter == self.size
-    return false
+    return true if counter == size
+
+    false
   end
 
   # my_any enumerable method definition
@@ -51,8 +52,14 @@ module Enumerable
     my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
+<<<<<<< HEAD
     return true if counter.positive?
     return false
+=======
+    return true if counter > 0
+
+    false
+>>>>>>> 525700ff40084e45f54d461f132fde531f5cae3b
   end
 
   # my_none? enumerable method definition
@@ -62,16 +69,18 @@ module Enumerable
     my_each do |elem|
       counter += 1 if block.call(elem) == false
     end
-    return true if counter == self.size
-    return false
+    return true if counter == size
+
+    false
   end
 
   # my_count enumerable method definition
 
   def my_count(&block)
     result = []
-    return self.size unless block_given?
-    self.my_each do |elem|
+    return size unless block_given?
+
+    my_each do |elem|
       result << elem if block.call(elem) == true
     end
     result.size
@@ -90,8 +99,13 @@ module Enumerable
   # my_inject enumerable method definition
 
   def my_inject
+<<<<<<< HEAD
     acc = self.first
     self.drop(1).my_each do |elem|
+=======
+    acc ||= first
+    my_each do |elem|
+>>>>>>> 525700ff40084e45f54d461f132fde531f5cae3b
       acc = yield(acc, elem)
     end
     acc
