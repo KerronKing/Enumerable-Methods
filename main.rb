@@ -138,7 +138,7 @@ puts [1, 2, 3].my_count
 [1, 2, 3].my_map { |x| puts x * 4 }
 
 # my_inject method test:
-puts [3, 2, 3].my_inject({ |x, y| x + y })
+puts [3, 2, 3].my_inject ({ |x, y| x + y })
 
 # multiply_els method test:
 puts [4, 2, 3].multiply_els
