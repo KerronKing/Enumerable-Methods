@@ -1,12 +1,13 @@
-module Enumerable
+# frozen_string_literal: true
 
+module Enumerable
   # my_each enumerable method definition
 
   def my_each
     i = 0
-    while i < self.size
-      yield(self[i])  
-      i += 1      
+    while i < size
+      yield(self[i])
+      i += 1
     end
     self
   end
@@ -15,9 +16,9 @@ module Enumerable
 
   def my_each_with_index
     i = 0
-    while i < self.size
-      yield(self[i], i)  
-      i += 1      
+    while i < size
+      yield(self[i], i)
+      i += 1
     end
     self
   end
@@ -26,7 +27,7 @@ module Enumerable
 
   def my_select(&block)
     result = []
-    self.my_each do |elem|
+    my_each do |elem|
       result << elem if block.call(elem) == true
     end
     result
@@ -36,7 +37,7 @@ module Enumerable
 
   def my_all?(&block)
     counter = 0
-    self.my_each do |elem|
+    my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
     return true if counter == self.size
@@ -47,7 +48,7 @@ module Enumerable
 
   def my_any?(&block)
     counter = 0
-    self.my_each do |elem|
+    my_each do |elem|
       counter += 1 if block.call(elem) == true
     end
     return true if counter > 0
@@ -58,7 +59,7 @@ module Enumerable
 
   def my_none?(&block)
     counter = 0
-    self.my_each do |elem|
+    my_each do |elem|
       counter += 1 if block.call(elem) == false
     end
     return true if counter == self.size
@@ -80,7 +81,7 @@ module Enumerable
 
   def my_map(&block)
     result = []
-    self.my_each do |elem|
+    my_each do |elem|
       result << block.call(elem)
     end
     result
@@ -100,13 +101,13 @@ module Enumerable
   # multiply all of the elements in an array
 
   def multiply_els
-    self.my_inject do |x, y|
+    my_inject do |x, y|
       x * y
     end
   end
 end
 
-#Method Tests:
+# Method Tests:
 
 # my_each method test:
 # [1, 2, 3].my_each { |x| puts x }
