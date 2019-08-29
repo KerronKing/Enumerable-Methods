@@ -53,7 +53,8 @@ module Enumerable
       counter += 1 if block.call(elem) == true
     end
     return true if counter.positive?
-    return false
+
+    false
   end
 
   # my_none? enumerable method definition
@@ -93,8 +94,8 @@ module Enumerable
   # my_inject enumerable method definition
 
   def my_inject
-    acc = self.first
-    self.drop(1).my_each do |elem|
+    acc = first
+    drop(1).my_each do |elem|
       acc = yield(acc, elem)
     end
     acc
