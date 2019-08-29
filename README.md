@@ -6,4 +6,4 @@ The goal was to build a method #bubble_sort that takes an array and returns a so
 
 The project was completed using Ruby. [Assignment link] https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks
 
-Authors @KerronKing
+Author @KerronKing
