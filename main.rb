@@ -3,16 +3,15 @@ module Enumerable
     i = 0
     while i < self.size
       yield(self[i])  
-      i+=1      
+      i += 1      
     end
     self
   end
   def my_each_with_index
-    i = index
-    self[index] = item
+    i = 0
     while i < self.size
-      yield(self[i])  
-      i+=1      
+      yield(self[i], i)  
+      i += 1      
     end
     self
   end
@@ -91,4 +90,4 @@ module Enumerable
 end
 
 
-puts [1, 2, 3].multiply_els 
+["Hello", "to", "everyone"].my_each_with_index { |x, y| puts "#{x}'s index is #{y}"}
