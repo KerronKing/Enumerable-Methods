@@ -71,12 +71,23 @@ module Enumerable
 
   # my_count enumerable method definition
 
-  def my_count(&block)
+  def my_count(arg = nil)
     result = []
-    return size unless block_given?
-
-    my_each do |elem|
-      result << elem if block.call(elem) == true
+    if block_given?
+      my_each do |elem|
+        result << elem if yield(elem) == true
+      end
+    end
+    
+    if !block_given?
+      if arg != nil
+        my_each do |elem|
+          result << elem if elem == arg
+        end
+      end
+      if arg == nil
+        result = self
+      end
     end
     result.size
   end
@@ -110,3 +121,7 @@ module Enumerable
     end
   end
 end
+
+arr = [1, 2, 4, 2]
+
+puts arr.my_count { |x| x % 2 == 0 }
