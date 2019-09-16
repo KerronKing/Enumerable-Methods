@@ -78,14 +78,13 @@ module Enumerable
         result << elem if yield(elem) == true
       end
     end
-    
-    if !block_given?
-      if arg != nil
+
+    unless block_given?
+      unless arg.nil?
         my_each do |elem|
           result << elem if elem == arg
         end
-      end
-      if arg == nil
+      else arg == nil
         result = self
       end
     end
