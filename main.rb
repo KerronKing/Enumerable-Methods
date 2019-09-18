@@ -41,20 +41,22 @@ module Enumerable
       my_each do |elem|
         counter += 1 if yield(elem) == true
       end
-      return true if counter == size
     else
-      if arg == nil && self.include?(false) || self.include?(nil)
-        return false
+      if arg == nil
+        my_each do |elem|
+          counter = -1 if elem == nil || elem == false
+          counter = size if elem == true
+        end
       else arg != nil
         my_each do |elem|
           counter += 1 if elem == arg
         end
-        if counter == size
-          return true
-        else
-          return false
-        end
       end
+    end
+    if counter == size
+      return true
+    else
+      return false
     end
     true
   end
@@ -142,6 +144,6 @@ module Enumerable
   end
 end
 
-arr = [1, 2, 3, 4]
+arr = [1, false, 3]
 
-puts arr.my_inject(2) {|x, y| x + y}
+puts arr.my_all?
