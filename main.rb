@@ -35,14 +35,28 @@ module Enumerable
 
   # my_all? enumerable method definition
 
-  def my_all?(&block)
+  def my_all?(arg = nil)
     counter = 0
-    my_each do |elem|
-      counter += 1 if block.call(elem) == true
+    if block_given?
+      my_each do |elem|
+        counter += 1 if yield(elem) == true
+      end
+      return true if counter == size
+    else
+      if arg == nil && self.include?(false) || self.include?(nil)
+        return false
+      else arg != nil
+        my_each do |elem|
+          counter += 1 if elem == arg
+        end
+        if counter == size
+          return true
+        else
+          return false
+        end
+      end
     end
-    return true if counter == size
-
-    false
+    true
   end
 
   # my_any enumerable method definition
@@ -103,10 +117,17 @@ module Enumerable
 
   # my_inject enumerable method definition
 
-  def my_inject
+  def my_inject(arg = nil)
     acc = first
-    drop(1).my_each do |elem|
-      acc = yield(acc, elem)
+    if block_given? && arg.nil?
+      drop(1).my_each do |elem|
+        acc = yield(acc, elem)
+      end
+    elsif block_given? && !arg.nil?
+      acc = arg
+      my_each do |elem|
+        acc = yield(acc, elem)
+      end
     end
     acc
   end
@@ -121,6 +142,6 @@ module Enumerable
   end
 end
 
-arr = [1, 2, 4, 2]
+arr = [1, 2, 3, 4]
 
-puts arr.my_count { |x| x % 2 == 0 }
+puts arr.my_inject(2) {|x, y| x + y}
