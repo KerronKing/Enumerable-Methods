@@ -44,8 +44,8 @@ module Enumerable
     else
       if arg == nil
         my_each do |elem|
-          counter = -1 if elem == nil || elem == false
-          counter = size if elem == true
+          counter -= 1 if elem == nil || elem == false
+          counter += 1 if !elem.nil?
         end
       else arg != nil
         my_each do |elem|
@@ -119,16 +119,35 @@ module Enumerable
 
   # my_inject enumerable method definition
 
-  def my_inject(arg = nil)
+  def my_inject(arg1 = nil, arg2 = nil)
     acc = first
-    if block_given? && arg.nil?
-      drop(1).my_each do |elem|
-        acc = yield(acc, elem)
+    syms = [:+, :-, :*, :/]
+
+    if block_given?
+      if arg1.nil?
+        drop(1).my_each do |elem|
+          acc = yield(acc, elem)
+        end
+      else
+        acc = arg1
+        my_each do |elem|
+          acc = yield(acc, elem)
+        end
       end
-    elsif block_given? && !arg.nil?
-      acc = arg
-      my_each do |elem|
-        acc = yield(acc, elem)
+    elsif !block_given?
+      if arg1 != syms[0..-1]
+        my_each do |elem|
+          if arg2 == syms[0]
+            arg1 = arg1 + elem
+          elsif arg2 == syms[1]
+            arg1 = arg1 - elem
+          elsif arg2 == syms[2]
+            arg1 = arg1 * elem
+          else
+            arg1 = arg1 / elem
+          end
+        end
+        acc = arg1
       end
     end
     acc
@@ -144,6 +163,6 @@ module Enumerable
   end
 end
 
-arr = [1, false, 3]
+arr = [1, 2, 5]
 
-puts arr.my_all?
+puts arr.my_inject(:+)
