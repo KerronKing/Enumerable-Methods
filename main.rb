@@ -162,7 +162,3 @@ module Enumerable
     end
   end
 end
-
-arr = [1, 2, 5]
-
-puts arr.my_inject(:+)
