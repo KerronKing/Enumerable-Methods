@@ -4,6 +4,8 @@ This is the second project of the Main Ruby curriculum at Microverse - @microver
 
 The goal was to build a rewrite Ruby's enumerable methods using yield statements and block calls.
 
-The project was completed using Ruby. [Assignment link] https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks
+The [project](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks) was completed using Ruby.
 
-Author @KerronKing
+## Author
+
+[KerronKing](https://github.com/KerronKing)
