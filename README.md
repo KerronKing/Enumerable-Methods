@@ -1,6 +1,6 @@
 # Enumerable-Methods
 
-This is the second project of the Main Ruby curriculum at Microverse - @microverseinc
+This is the second project of the Main Ruby curriculum at [Microverse](https://www.microverse.org).
 
 The goal was to build a rewrite Ruby's enumerable methods using yield statements and block calls.
 
